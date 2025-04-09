@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 2: Data Structures & Basic Operations for Malaria Data Analysis</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <button class="sidebar-toggle" id="sidebar-toggle">Menu</button>
+    
+    <div class="sidebar" id="sidebar">
+        <h3>Course Navigation</h3>
+        <ul>
+            <li class="menu-item">
+                <a href="#week2">📅 Week 2: Data Structures</a>
+                <ul class="sub-menu">
+                    <li><a href="#data-structures">Data Structures</a></li>
+                    <li><a href="#indexing">Indexing & Subsetting</a></li>
+                    <li><a href="#basic-functions">Basic Functions</a></li>
+                    <li><a href="#dplyr">Data Cleaning with pandas</a></li>
+                </ul>
+            </li>
+            <li class="menu-item">
+                <a href="#exercises2">📌 Week 2: Exercises</a>
+                <ul class="sub-menu">
+                    <li><a href="#ex-cleaning">Data Cleaning</a></li>
+                    <li><a href="#ex-dplyr">pandas Exercises</a></li>
+                    <li><a href="#ex-viz">Visualization Exercises</a></li>
+                    <li><a href="#ex-bonus2">Week 2 Bonus Challenge</a></li>
+                </ul>
+            </li>
+            <li class="menu-item">
+                <a href="#solutions2">📌 Week 2: Solutions</a>
+                <ul class="sub-menu">
+                    <li><a href="#sol-cleaning">Cleaning Solutions</a></li>
+                    <li><a href="#sol-dplyr">pandas Solutions</a></li>
+                    <li><a href="#sol-viz">Visualization Solutions</a></li>
+                    <li><a href="#sol-bonus2">Bonus Solution</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="container">
+        <h1 id="week2">📅 Week 2: Data Structures & Basic Operations for Malaria Data Analysis</h1>
+        
+        <p>This week, we will:<br>
+        ✅ <strong>Explore basic data structures</strong>: Lists, arrays, dictionaries, and DataFrames<br>
+        ✅ <strong>Learn indexing and subsetting</strong> for malaria data<br>
+        ✅ <strong>Use basic functions</strong>: <code>mean()</code>, <code>sum()</code>, <code>value_counts()</code>, <code>describe()</code><br>
+        ✅ <strong>Clean data with <code>pandas</code></strong>: <code>query()</code>, <code>loc[]</code>, <code>assign()</code></p>
+        
+        <hr>
+        
+        <h2 id="data-structures">1️⃣ Lists, Arrays, Dictionaries, and DataFrames</h2>
+        
+        <h3>What are Data Structures?</h3>
+        <p>📌 <strong>Data structures</strong> are how data is organized and stored in Python. Understanding these is key to effective data analysis.</p>
+        
+        <h3>Step 1: Lists</h3>
+        <div class="r-code">
+            <code>
+# Creating a list of malaria cases per region<br>
+cases_per_region = [150, 200, 250, 300]
+            </code>
+        </div>
+        
+        <div class="explanation">
+            <h4>🔍 Explanation:</h4>
+            <p>✔ <code>[]</code> creates a <strong>list</strong>—a basic data structure in Python<br>
+            ✔ <code>cases_per_region</code> stores the number of malaria cases in four different regions</p>
+        </div>
+        
+        <hr>
+        
+        <h3>Step 2: NumPy Arrays</h3>
+        <div class="r-code">
+            <code>
+# Creating a NumPy array of malaria cases (rows = regions, columns = years)<br>
+import numpy as np<br>
+malaria_matrix = np.array([[150, 200, 250, 300], [120, 180, 220, 260]])
+            </code>
+        </div>
+        
+        <div class="explanation">
+            <h4>🔍 Explanation:</h4>
+            <p>✔ <code>np.array()</code> creates a <strong>NumPy array</strong> with rows and columns<br>
+            ✔ <code>malaria_matrix</code> holds the malaria case data in a 2x4 format</p>
+        </div>
+        
+        <hr>
+        
+        <h3>Step 3: Dictionaries</h3>
+        <div class="r-code">
+            <code>
+# Creating a dictionary of malaria data<br>
+malaria_dict = {<br>
+    "cases": cases_per_region,<br>
+    "matrix": malaria_matrix,<br>
+    "region": "West"<br>
+}
+            </code>
+        </div>
+        
+        <div class="explanation">
+            <h4>🔍 Explanation:</h4>
+            <p>✔ <code>{}</code> creates a <strong>dictionary</strong>, which can store multiple types of data with named keys<br>
+            ✔ <code>malaria_dict</code> contains the list, matrix, and a text string "West"</p>
+        </div>
+        
+        <hr>
+        
+        <h3>Step 4: DataFrames</h3>
+        <div class="r-code">
+            <code>
+# Creating a DataFrame for malaria cases per region<br>
+import pandas as pd<br>
+malaria_df = pd.DataFrame({<br>
+    "region": ["West", "East", "North", "South"],<br>
+    "cases": cases_per_region<br>
+})
+            </code>
+        </div>
+        
+        <div class="explanation">
+            <h4>🔍 Explanation:</h4>
+            <p>✔ <code>pd.DataFrame()</code> creates a <strong>DataFrame</strong>, which is used to store tabular data<br>
+            ✔ <code>malaria_df</code> is a DataFrame where <code>region</code> is a column of text and <code>cases</code> is a column of numbers</p>
+        </div>
+        
+        <hr>
+        
+        <h2 id="indexing">2️⃣ Indexing & Subsetting Malaria Data</h2>
+        
+        <h3>Step 1: Accessing Data in Lists</h3>
+        <div class="r-code">
+            <code>
+# Accessing the first value in the list<br>
+cases_per_region[0]
+            </code>
+        </div>
+        
+        <div class="explanation">
+            <h4>🔍 Explanation:</h4>
+            <p>✔ <code>cases_per_region[0]</code> accesses the <strong>first element</strong> of the list (Python uses 0-based indexing)</p>
+        </div>
+        
+        <hr>
+        
+        <h3>Step 2: Accessing Data in NumPy Arrays</h3>
+        <div class="r-code">
+            <code>
+# Accessing the element in the 1st row and 2nd column<br>
+malaria_matrix[0, 1]
+            </code>
+        </div>
+        
+        <div class="explanation">
+            <h4>🔍 Explanation:</h4>
+            <p>✔ <code>malaria_matrix[0, 1]</code> accesses the element in the <strong>1st row and 2nd column</strong> of the array</p>
+        </div>
+        
+        <hr>
+        
+        <h3>Step 3: Accessing Data in DataFrames</h3>
+        <div class="r-code">
+            <code>
+# Accessing the 'cases' column<br>
+malaria_df['cases']
+            </code>
+        </div>
+        
+        <div class="explanation">
+            <h4>🔍 Explanation:</h4>
+            <p>✔ <code>malaria_df['cases']</code> accesses the <strong>'cases'</strong> column of the DataFrame</p>
+        </div>
+        
+        <hr>
+        
+        <h3>Step 4: Subsetting Data with Conditions</h3>
+        <div class="r-code">
+            <code>
+# Subsetting the data to find cases greater than 200<br>
+subset_df = malaria_df[malaria_df['cases'] > 200]
+            </code>
+        </div>
+        
+        <div class="explanation">
+            <h4>🔍 Explanation:</h4>
+            <p>✔ <code>malaria_df[malaria_df['cases'] > 200]</code> subsets rows where <strong>cases are greater than 200</strong></p>
+        </div>
+        
+        <hr>
+        
+        <h2 id="basic-functions">3️⃣ Basic Functions for Malaria Data Analysis</h2>
+        
+        <h3>Step 1: <code>mean()</code></h3>
+        <div class="r-code">
+            <code>
+# Calculating the mean number of cases<br>
+mean_cases = malaria_df['cases'].mean()
+            </code>
+        </div>
+        
+        <div class="explanation">
+            <h4>🔍 Explanation:</h4>
+            <p>✔ <code>mean()</code> calculates the <strong>average</strong> of the <code>cases</code> column<br>
+            ✔ <code>mean_cases</code> stores the result of the average malaria cases</p>
+        </div>
+        
+        <hr>
+        
+        <h3>Step 2: <code>sum()</code></h3>
+        <div class="r-code">
+            <code>
+# Calculating the total number of malaria cases<br>
+total_cases = malaria_df['cases'].sum()
+            </code>
+        </div>
+        
+        <div class="explanation">
+            <h4>🔍 Explanation:</h4>
+            <p>✔ <code>sum()</code> calculates the <strong>sum</strong> of the <code>cases</code> column<br>
+            ✔ <code>total_cases</code> stores the result of the total malaria cases</p>
+        </div>
+        
+        <hr>
+        
+        <h3>Step 3: <code>value_counts()</code></h3>
+        <div class="r-code">
+            <code>
+# Counting the occurrences of each unique value in the region column<br>
+region_counts = malaria_df['region'].value_counts()
+            </code>
+        </div>
+        
+        <div class="explanation">
+            <h4>🔍 Explanation:</h4>
+            <p>✔ <code>value_counts()</code> counts the <strong>frequency</strong> of each value in the specified column (e.g., <code>region</code>)<br>
+            ✔ <code>region_counts</code> stores the count of malaria cases per region</p>
+        </div>
+        
+        <hr>
+        
+        <h3>Step 4: <code>describe()</code></h3>
+        <div class="r-code">
+            <code>
+# Generating summary statistics of the DataFrame<br>
+summary_stats = malaria_df.describe()
+            </code>
+        </div>
+        
+        <div class="explanation">
+            <h4>🔍 Explanation:</h4>
+            <p>✔ <code>describe()</code> generates <strong>summary statistics</strong> for each numeric column (count, mean, std, min, 25%, 50%, 75%, max) in the DataFrame<br>
+            ✔ <code>summary_stats</code> stores the resulting statistics</p>
+        </div>
+        
+        <hr>
+        
+        <h2 id="dplyr">4️⃣ Data Cleaning with <code>pandas</code></h2>
+        
+        <h3>Step 1: Installing and Importing <code>pandas</code></h3>
+        <div class="r-code">
+            <code>
+# Install pandas package<br>
+# In terminal: pip install pandas<br>
+<br>
+# Import the pandas package<br>
+import pandas as pd
+            </code>
+        </div>
+        
+        <div class="explanation">
+            <h4>🔍 Explanation:</h4>
+            <p>✔ <code>pip install pandas</code> installs the <code>pandas</code> package, which simplifies data manipulation<br>
+            ✔ <code>import pandas as pd</code> imports the package with an alias for easier use</p>
+        </div>
+        
+        <hr>
+        
+        <h3>Step 2: <code>query()</code> – Filtering Rows</h3>
+        <div class="r-code">
+            <code>
+# Filter rows where cases are greater than 200<br>
+filtered_df = malaria_df.query('cases > 200')
+            </code>
+        </div>
+        
+        <div class="explanation">
+            <h4>🔍 Explanation:</h4>
+            <p>✔ <code>query()</code> selects <strong>rows</strong> that meet the condition (cases > 200)<br>
+            ✔ <code>filtered_df</code> stores the filtered dataset</p>
+        </div>
+        
+        <hr>
+        
+        <h3>Step 3: <code>loc[]</code> – Selecting Columns</h3>
+        <div class="r-code">
+            <code>
+# Select only the 'region' and 'cases' columns<br>
+selected_df = malaria_df.loc[:, ['region', 'cases']]
+            </code>
+        </div>
+        
+        <div class="explanation">
+            <h4>🔍 Explanation:</h4>
+            <p>✔ <code>loc[]</code> is used to access a group of rows and columns by labels<br>
+            ✔ <code>selected_df</code> contains only the <code>region</code> and <code>cases</code> columns</p>
+        </div>
+        
+        <hr>
+        
+        <h3>Step 4: <code>assign()</code> – Adding/Modifying Columns</h3>
+        <div class="r-code">
+            <code>
+# Create a new column 'cases_per_1000' by dividing cases by 1000<br>
+malaria_df = malaria_df.assign(cases_per_1000 = malaria_df['cases'] / 1000)
+            </code>
+        </div>
+        
+        <div class="explanation">
+            <h4>🔍 Explanation:</h4>
+            <p>✔ <code>assign()</code> creates or modifies a <strong>column</strong> in the DataFrame<br>
+            ✔ <code>cases_per_1000</code> is a new column showing cases per 1000 people</p>
+        </div>
+        
+        <hr>
+        
+        <h2>✅ Summary of Week 2</h2>
+        <p>By the end of this week, you should:<br>
+        ✔ <strong>Understand basic Python data structures</strong>: lists, arrays, dictionaries, and DataFrames<br>
+        ✔ <strong>Know how to index and subset data</strong><br>
+        ✔ <strong>Be able to apply basic functions</strong>: <code>mean()</code>, <code>sum()</code>, <code>value_counts()</code>, <code>describe()</code><br>
+        ✔ <strong>Have learned to clean data with <code>pandas</code></strong>: <code>query()</code>, <code>loc[]</code>, <code>assign()</code></p>
+        
+        <hr>
+        
+        <h1 id="exercises2">📌 Week 2: Exercises – Data Cleaning and Visualization with Python for Malaria Data Analysis</h1>
+        
+        <p>This week's exercises will focus on <strong>data cleaning, outlier detection, and data visualization</strong>. The goal is to prepare the malaria dataset for analysis by handling missing values, outliers, and creating visualizations. Follow along step by step!</p>
+        
+        <hr>
+        
+        <div class="exercise-section">
+            <h2 id="ex-cleaning">1️⃣ Data Cleaning and Preprocessing</h2>
+            
+            <h3>Exercise 1.1: Handle Missing Values</h3>
+            <p>🔹 <strong>You have a DataFrame called <code>malaria_data</code> with the following columns:</strong><br>
+            - <code>Region</code><br>
+            - <code>Cases</code><br>
+            - <code>Fatalities</code><br>
+            - <code>Recovered</code></p>
+            
+            <p>Some values in the <code>Cases</code> column are missing.</p>
+            
+            <p><strong>Write the Python code to:</strong></p>
+            <ol>
+                <li>Find the number of missing values in the <code>Cases</code> column.</li>
+                <li>Replace the missing values with the <strong>mean</strong> of the <code>Cases</code> column.</li>
+            </ol>
+            
+            <hr>
+            
+            <h3>Exercise 1.2: Remove Rows with Missing Data</h3>
+            <p>🔹 <strong>Using the <code>dropna()</code> function, remove rows with any missing values from the <code>malaria_data</code> DataFrame.</strong></p>
+            
+            <p><strong>Write the Python code to:</strong></p>
+            <ol>
+                <li>Use <code>dropna()</code> to remove rows with missing data.</li>
+                <li>Display the cleaned DataFrame.</li>
+            </ol>
+            
+            <hr>
+            
+            <h3>Exercise 1.3: Handle Outliers</h3>
+            <p>🔹 <strong>Detect and remove outliers in the <code>Cases</code> column using the Interquartile Range (IQR).</strong></p>
+            <p>The formula for detecting outliers is:</p>
+            <pre>
+Lower bound = Q1 - 1.5 * IQR
+Upper bound = Q3 + 1.5 * IQR</pre>
+            <p>Where <strong>Q1</strong> is the first quartile and <strong>Q3</strong> is the third quartile.</p>
+            
+            <p><strong>Write the Python code to:</strong></p>
+            <ol>
+                <li>Calculate Q1, Q3, and IQR for the <code>Cases</code> column.</li>
+                <li>Remove outliers from the <code>Cases</code> column.</li>
+                <li>Display the cleaned dataset.</li>
+            </ol>
+        </div>
+        
+        <div class="exercise-section">
+            <h2 id="ex-dplyr">2️⃣ Data Manipulation with pandas</h2>
+            
+            <h3>Exercise 2.1: Filter Data by Condition</h3>
+            <p>🔹 <strong>Use the <code>query()</code> function from <code>pandas</code> to filter out malaria cases where the number of <code>Cases</code> is less than 500.</strong></p>
+            
+            <p><strong>Write the Python code to:</strong></p>
+            <ol>
+                <li>Filter <code>malaria_data</code> to keep rows where <code>Cases > 500</code>.</li>
+                <li>Display the filtered dataset.</li>
+            </ol>
+            
+            <hr>
+            
+            <h3>Exercise 2.2: Sort Data</h3>
+            <p>🔹 <strong>Use the <code>sort_values()</code> function from <code>pandas</code> to sort the data in descending order based on the <code>Cases</code> column.</strong></p>
+            
+            <p><strong>Write the Python code to:</strong></p>
+            <ol>
+                <li>Sort the <code>malaria_data</code> DataFrame by <code>Cases</code> in descending order.</li>
+                <li>Display the sorted dataset.</li>
+            </ol>
+            
+            <hr>
+            
+            <h3>Exercise 2.3: Create a New Column</h3>
+            <p>🔹 <strong>Create a new column called <code>FatalityRate</code> that calculates the fatality rate as:</strong></p>
+            <pre>FatalityRate = Fatalities / Cases * 100</pre>
+            
+            <p><strong>Write the Python code to:</strong></p>
+            <ol>
+                <li>Add a new column <code>FatalityRate</code> to the <code>malaria_data</code> DataFrame.</li>
+                <li>Display the updated DataFrame.</li>
+            </ol>
+        </div>
+        
+        <div class="exercise-section">
+            <h2 id="ex-viz">3️⃣ Data Visualization with matplotlib and seaborn</h2>
+            
+            <h3>Exercise 3.1: Create a Histogram</h3>
+            <p>🔹 <strong>Use the <code>matplotlib</code> library to create a histogram of the <code>Cases</code> column from <code>malaria_data</code>.</strong></p>
+            
+            <p><strong>Write the Python code to:</strong></p>
+            <ol>
+                <li>Create a histogram of the <code>Cases</code> column.</li>
+                <li>Customize the plot with a title and axis labels.</li>
+            </ol>
+            
+            <hr>
+            
+            <h3>Exercise 3.2: Create a Scatter Plot</h3>
+            <p>🔹 <strong>Use the <code>matplotlib</code> library to create a scatter plot showing the relationship between <code>Cases</code> and <code>Fatalities</code>.</strong></p>
+            
+            <p><strong>Write the Python code to:</strong></p>
+            <ol>
+                <li>Create a scatter plot with <code>Cases</code> on the x-axis and <code>Fatalities</code> on the y-axis.</li>
+                <li>Add a title and axis labels to the plot.</li>
+            </ol>
+            
+            <hr>
+            
+            <h3>Exercise 3.3: Create a Boxplot</h3>
+            <p>🔹 <strong>Use the <code>seaborn</code> library to create a boxplot to visualize the distribution of <code>Cases</code>.</strong></p>
+            
+            <p><strong>Write the Python code to:</strong></p>
+            <ol>
+                <li>Create a boxplot of the <code>Cases</code> column.</li>
+                <li>Add a title to the plot and customize the colors.</li>
+            </ol>
+        </div>
+        
+        <div class="exercise-section">
+            <h2 id="ex-bonus2">4️⃣ Bonus Challenge: Automate Data Cleaning and Visualization</h2>
+            
+            <p>🔹 <strong>Write a Python script that:</strong></p>
+            <ol>
+                <li><strong>Asks the user</strong> for a file path of a CSV file containing malaria data.</li>
+                <li><strong>Loads the dataset</strong> into Python.</li>
+                <li><strong>Cleans the data</strong> by handling missing values and outliers (use previous steps).</li>
+                <li><strong>Creates visualizations</strong>:
+                    <ul>
+                        <li>A histogram of <code>Cases</code></li>
+                        <li>A scatter plot of <code>Cases</code> vs <code>Fatalities</code></li>
+                    </ul>
+                </li>
+                <li><strong>Saves the cleaned dataset</strong> to a new CSV file.</li>
+            </ol>
+            
+            <p>📌 <strong>Hint:</strong> Use <code>pd.read_csv()</code>, <code>describe()</code>, <code>to_csv()</code>, and the visualization functions you learned earlier.</p>
+        </div>
+        
+        <hr>
+        
+        <h1 id="solutions2">📌 Week 2: Solutions – Data Cleaning and Visualization with Python for Malaria Data Analysis</h1>
+        
+        <p>Here are the <strong>solutions</strong> for Week 2 exercises:</p>
+        
+        <hr>
+        
+        <div class="solution-section">
+            <h2 id="sol-cleaning">1️⃣ Data Cleaning and Preprocessing</h2>
+            
+            <h3>Exercise 1.1: Handle Missing Values</h3>
+            <div class="r-code">
+                <code>
+# Find the number of missing values in the 'Cases' column<br>
+missing_values = malaria_data['Cases'].isna().sum()<br>
+print(missing_values)<br>
+<br>
+# Replace missing values with the mean of the 'Cases' column<br>
+mean_cases = malaria_data['Cases'].mean()<br>
+malaria_data['Cases'].fillna(mean_cases, inplace=True)
+                </code>
+            </div>
+            
+            <div class="explanation">
+                <h4>Explanation:</h4>
+                <p>- <code>isna()</code> checks for missing values in the <code>Cases</code> column.<br>
+                - <code>mean()</code> calculates the mean of the <code>Cases</code> column, automatically excluding missing values.<br>
+                - <code>fillna()</code> with <code>inplace=True</code> replaces missing values directly in the DataFrame.</p>
+            </div>
+            
+            <hr>
+            
+            <h3>Exercise 1.2: Remove Rows with Missing Data</h3>
+            <div class="r-code">
+                <code>
+# Remove rows with any missing values using dropna()<br>
+malaria_data_cleaned = malaria_data.dropna()<br>
+<br>
+# Display the cleaned DataFrame<br>
+malaria_data_cleaned.head()
+                </code>
+            </div>
+            
+            <div class="explanation">
+                <h4>Explanation:</h4>
+                <p>- <code>dropna()</code> removes rows with any missing values in the entire DataFrame.</p>
+            </div>
+            
+            <hr>
+            
+            <h3>Exercise 1.3: Handle Outliers</h3>
+            <div class="r-code">
+                <code>
+# Calculate Q1, Q3, and IQR for the 'Cases' column<br>
+Q1 = malaria_data['Cases'].quantile(0.25)<br>
+Q3 = malaria_data['Cases'].quantile(0.75)<br>
+IQR = Q3 - Q1<br>
+<br>
+# Calculate the lower and upper bounds for outlier detection<br>
+lower_bound = Q1 - 1.5 * IQR<br>
+upper_bound = Q3 + 1.5 * IQR<br>
+<br>
+# Remove outliers from the 'Cases' column<br>
+malaria_data_no_outliers = malaria_data[(malaria_data['Cases'] >= lower_bound) & (malaria_data['Cases'] <= upper_bound)]<br>
+<br>
+# Display the cleaned dataset<br>
+malaria_data_no_outliers.head()
+                </code>
+            </div>
+            
+            <div class="explanation">
+                <h4>Explanation:</h4>
+                <p>- <code>quantile()</code> computes the first (Q1) and third (Q3) quartiles.<br>
+                - IQR is calculated as the difference between Q3 and Q1.<br>
+                - Outliers are removed based on the lower and upper bounds, defined by 1.5 times the IQR.</p>
+            </div>
+        </div>
+        
+        <div class="solution-section">
+            <h2 id="sol-dplyr">2️⃣ Data Manipulation with pandas</h2>
+            
+            <h3>Exercise 2.1: Filter Data by Condition</h3>
+            <div class="r-code">
+                <code>
+# Filter the data to keep rows where 'Cases' > 500<br>
+import pandas as pd<br>
+malaria_data_filtered = malaria_data.query('Cases > 500')<br>
+<br>
+# Display the filtered dataset<br>
+malaria_data_filtered.head()
+                </code>
+            </div>
+            
+            <div class="explanation">
+                <h4>Explanation:</h4>
+                <p>- <code>query()</code> from <code>pandas</code> is used to keep only the rows where <code>Cases > 500</code>.</p>
+            </div>
+            
+            <hr>
+            
+            <h3>Exercise 2.2: Sort Data</h3>
+            <div class="r-code">
+                <code>
+# Sort the data in descending order based on the 'Cases' column<br>
+malaria_data_sorted = malaria_data.sort_values(by='Cases', ascending=False)<br>
+<br>
+# Display the sorted dataset<br>
+malaria_data_sorted.head()
+                </code>
+            </div>
+            
+            <div class="explanation">
+                <h4>Explanation:</h4>
+                <p>- <code>sort_values()</code> from <code>pandas</code> is used to sort the data. The <code>ascending=False</code> parameter is used to sort in descending order.</p>
+            </div>
+            
+            <hr>
+            
+            <h3>Exercise 2.3: Create a New Column</h3>
+            <div class="r-code">
+                <code>
+# Create a new column 'FatalityRate' in the DataFrame<br>
+malaria_data['FatalityRate'] = (malaria_data['Fatalities'] / malaria_data['Cases']) * 100<br>
+<br>
+# Display the updated DataFrame<br>
+malaria_data.head()
+                </code>
+            </div>
+            
+            <div class="explanation">
+                <h4>Explanation:</h4>
+                <p>- The <code>FatalityRate</code> is calculated by dividing <code>Fatalities</code> by <code>Cases</code> and multiplying by 100.</p>
+            </div>
+        </div>
+        
+        <div class="solution-section">
+            <h2 id="sol-viz">3️⃣ Data Visualization with matplotlib and seaborn</h2>
+            
+            <h3>Exercise 3.1: Create a Histogram</h3>
+            <div class="r-code">
+                <code>
+# Import matplotlib for visualization<br>
+import matplotlib.pyplot as plt<br>
+<br>
+# Create a histogram of the 'Cases' column<br>
+plt.figure(figsize=(10, 6))<br>
+plt.hist(malaria_data['Cases'], bins=10, color='blue', edgecolor='black')<br>
+plt.title('Distribution of Malaria Cases')<br>
+plt.xlabel('Cases')<br>
+plt.ylabel('Frequency')<br>
+plt.grid(True, linestyle='--', alpha=0.7)<br>
+plt.show()
+                </code>
+            </div>
+            
+            <div class="explanation">
+                <h4>Explanation:</h4>
+                <p>- <code>plt.hist()</code> creates the histogram with custom bin settings.<br>
+                - <code>plt.title()</code> and <code>plt.xlabel()/plt.ylabel()</code> add a title and labels to the axes.</p>
+            </div>
+            
+            <hr>
+            
+            <h3>Exercise 3.2: Create a Scatter Plot</h3>
+            <div class="r-code">
+                <code>
+# Create a scatter plot of 'Cases' vs 'Fatalities'<br>
+plt.figure(figsize=(10, 6))<br>
+plt.scatter(malaria_data['Cases'], malaria_data['Fatalities'], color='red', alpha=0.7)<br>
+plt.title('Malaria Cases vs Fatalities')<br>
+plt.xlabel('Cases')<br>
+plt.ylabel('Fatalities')<br>
+plt.grid(True, linestyle='--', alpha=0.7)<br>
+plt.show()
+                </code>
+            </div>
+            
+            <div class="explanation">
+                <h4>Explanation:</h4>
+                <p>- <code>plt.scatter()</code> creates a scatter plot. The points are colored red for visual distinction.<br>
+                - <code>alpha=0.7</code> makes the points semi-transparent, which helps when points overlap.</p>
+            </div>
+            
+            <hr>
+            
+            <h3>Exercise 3.3: Create a Boxplot</h3>
+            <div class="r-code">
+                <code>
+# Import seaborn for enhanced visualization<br>
+import seaborn as sns<br>
+<br>
+# Create a boxplot of the 'Cases' column<br>
+plt.figure(figsize=(10, 6))<br>
+sns.boxplot(y=malaria_data['Cases'], color='lightgreen')<br>
+plt.title('Boxplot of Malaria Cases')<br>
+plt.ylabel('Cases')<br>
+plt.grid(True, linestyle='--', alpha=0.7)<br>
+plt.show()
+                </code>
+            </div>
+            
+            <div class="explanation">
+                <h4>Explanation:</h4>
+                <p>- <code>sns.boxplot()</code> creates the boxplot. The box is filled with light green.<br>
+                - <code>plt.title()</code> and <code>plt.ylabel()</code> add a title and y-axis label.</p>
+            </div>
+        </div>
+        
+        <div class="solution-section">
+            <h2 id="sol-bonus2">4️⃣ Bonus Challenge: Automate Data Cleaning and Visualization</h2>
+            
+            <div class="r-code">
+                <code>
+# Import necessary libraries<br>
+import pandas as pd<br>
+import matplotlib.pyplot as plt<br>
+import numpy as np<br>
+<br>
+# Ask the user for the file path<br>
+file_path = input("Enter the path to the CSV file: ")<br>
+<br>
+# Try to load the dataset and perform data cleaning and visualization<br>
+try:<br>
+    # Load the dataset<br>
+    malaria_data = pd.read_csv(file_path)<br>
+    <br>
+    # Display basic information about the dataset<br>
+    print("Dataset Information:")<br>
+    print(malaria_data.info())<br>
+    print("\nSummary Statistics:")<br>
+    print(malaria_data.describe())<br>
+    <br>
+    # Clean the data by handling missing values<br>
+    # Replace missing values in 'Cases' with the mean<br>
+    mean_cases = malaria_data['Cases'].mean()<br>
+    malaria_data['Cases'].fillna(mean_cases, inplace=True)<br>
+    <br>
+    # Handle outliers in the 'Cases' column using IQR<br>
+    Q1 = malaria_data['Cases'].quantile(0.25)<br>
+    Q3 = malaria_data['Cases'].quantile(0.75)<br>
+    IQR = Q3 - Q1<br>
+    lower_bound = Q1 - 1.5 * IQR<br>
+    upper_bound = Q3 + 1.5 * IQR<br>
+    malaria_data = malaria_data[(malaria_data['Cases'] >= lower_bound) & (malaria_data['Cases'] <= upper_bound)]<br>
+    <br>
+    # Create visualizations<br>
+    # Create a histogram of 'Cases'<br>
+    plt.figure(figsize=(10, 6))<br>
+    plt.hist(malaria_data['Cases'], bins=10, color='blue', edgecolor='black')<br>
+    plt.title('Distribution of Malaria Cases')<br>
+    plt.xlabel('Cases')<br>
+    plt.ylabel('Frequency')<br>
+    plt.grid(True, linestyle='--', alpha=0.7)<br>
+    plt.savefig('malaria_cases_histogram.png')<br>
+    plt.close()<br>
+    <br>
+    # Create a scatter plot of 'Cases' vs 'Fatalities'<br>
+    plt.figure(figsize=(10, 6))<br>
+    plt.scatter(malaria_data['Cases'], malaria_data['Fatalities'], color='red', alpha=0.7)<br>
+    plt.title('Malaria Cases vs Fatalities')<br>
+    plt.xlabel('Cases')<br>
+    plt.ylabel('Fatalities')<br>
+    plt.grid(True, linestyle='--', alpha=0.7)<br>
+    plt.savefig('malaria_cases_vs_fatalities.png')<br>
+    plt.close()<br>
+    <br>
+    # Save the cleaned dataset to a new CSV file<br>
+    clean_file_path = "cleaned_" + file_path.split("/")[-1]<br>
+    malaria_data.to_csv(clean_file_path, index=False)<br>
+    print(f"\nCleaned data saved to {clean_file_path}")<br>
+    print(f"Visualizations saved as PNG files")<br>
+<br>
+except FileNotFoundError:<br>
+    print(f"Error: The file {file_path} was not found.")<br>
+except Exception as e:<br>
+    print(f"An error occurred: {e}")
+                </code>
+            </div>
+            
+            <div class="explanation">
+                <h4>Explanation:</h4>
+                <p>- The script asks the user for a file path and loads the dataset using <code>pd.read_csv()</code>.<br>
+                - It handles missing values using <code>fillna()</code> and removes outliers based on the IQR method.<br>
+                - It creates a histogram and scatter plot for visualizations and saves them as PNG files.<br>
+                - Finally, it saves the cleaned dataset using <code>to_csv()</code>.<br>
+                - Error handling is implemented using try-except blocks.</p>
+            </div>
+            
+            <h3>💡 Additional Notes:</h3>
+            <p>- Make sure to have the required libraries (<code>matplotlib</code>, <code>seaborn</code>, <code>pandas</code>, <code>numpy</code>, etc.) installed before running the code.<br>
+            - For the bonus challenge, ensure the path to the CSV file is correct, and if running on an interactive system like Jupyter Notebook, input the file path properly.</p>
+        </div>
+        
+        <hr>
+        
+        <h2>💡 What's Next?</h2>
+        <p>✔ After completing these exercises, you will have learned how to clean and visualize malaria data using Python.<br>
+        ✔ In <strong>Week 3</strong>, we will dive deeper into advanced analysis techniques such as grouping, summarizing, and advanced plotting! 🚀</p>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
